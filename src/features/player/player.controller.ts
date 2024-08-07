@@ -3,14 +3,16 @@ import { PlayerService } from './player.service';
 import { CreatePlayerDto } from './dto/create-player.dto';
 import { UpdatePlayerDto } from './dto/update-player.dto';
 
+
+
+
 @Controller('player')
 export class PlayerController {
   constructor(private readonly playerService: PlayerService) {}
 
   @Post('add-player')
   create(@Body() payload: CreatePlayerDto) {
-    console.log('payload: ', payload);
-    return this.playerService.create(payload);
+    return this.playerService.createPlayer(payload);
   }
 
   // @Get()
@@ -18,10 +20,10 @@ export class PlayerController {
   //   return this.playerService.findAll();
   // }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.playerService.findOne(+id);
-  // }
+  @Get(':id')
+  async findOne(@Param('id') id: number) {
+    return this.playerService.getPlayer(id);
+  }
 
   // @Patch(':id')
   // update(@Param('id') id: string, @Body() updatePlayerDto: UpdatePlayerDto) {
